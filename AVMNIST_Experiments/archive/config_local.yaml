@@ -1,0 +1,29 @@
+data:
+  data_dir: "C:/Users/Ward/Desktop/vub-github/Thesis-project/AVMNIST_Experiments/data/avmnist/"
+experiment:
+  hyperparameter_search: true
+  seed: 0
+hardware:
+  device: cpu
+  num_gpus: 0
+  num_workers: 6
+hyperparameters:
+  batch_size: 256
+  center_momentum: 0.8554867848389713
+  cosine_loss_alpha: 0
+  data_augmentation: burst_noise
+  dropout: 0.22384059586543292
+  learning_rate: 0.000814915477361418
+  momentum: 0.9963539891371808
+  n_global_views: 2
+  n_local_views: 4
+  num_epochs: 10
+  output_dim: 256
+  projection_dim: 256
+  teacher_temperature: 0.00011290356719945857
+  weight_decay: 0.00010062884239302332
+model:
+  model_dir: "C:/Users/Ward/Desktop/vub-github/Thesis-project/AVMNIST_Experiments/model_saves/"
+  name: dino_unimodal_audio_Resnet18
+  metric: mlp_acc
+  num_classes: 10

@@ -1,0 +1,167 @@
+home_dir: "/user/brussel/111/vsc11197/AVMNIST/"
+data:
+  data_dir: "/data/brussel/111/vsc11197/AVMNIST/data/"
+experiment:
+  hyperparameter_search: true
+  seed: 0
+hardware:
+  device: cpu
+  num_gpus: 0
+  num_workers: 8
+hyperparameters:
+  batch_size: 256
+  center_momentum: 0.8554867848389713
+  cosine_loss_alpha: 0
+  data_augmentation: burst_noise
+  dropout: 0.22384059586543292
+  learning_rate: 0.000814915477361418
+  momentum: 0.9963539891371808
+  n_global_views: 2
+  n_local_views: 4
+  num_epochs: 100
+  output_dim: 256
+  projection_dim: 256
+  teacher_temperature: 0.00011290356719945857
+  weight_decay: 0.00010062884239302332
+best_augments:
+  global_views:
+    frequency_mask:
+      freq_mask_param: 5
+      p: 0.3947889012005157
+    gaussian_noise:
+      p: 0.22642974868035726
+      std: 0.04552457550727449
+    time_mask:
+      p: 0.3159564986866322
+      time_mask_param: 20
+    time_warp:
+      max_factor: 1.1
+      min_factor: 0.9
+      p: 0.37029194213389915
+  local_views:
+    frequency_mask:
+      freq_mask_param: 25
+      p: 0.9356597791956477
+    gaussian_noise:
+      p: 0.8427869628340783
+      std: 0.18046730961749252
+    grouped_masking:
+      mask_ratio: 0.6483441701034119
+      p: 0.9763835472062644
+    time_mask:
+      p: 0.9701644478855703
+      time_mask_param: 25
+    time_warp:
+      max_factor: 1.349827557748123
+      min_factor: 0.610125670950756
+      p: 0.8197531687210289
+model:
+  model_dir_data: "/data/brussel/111/vsc11197/AVMNIST/dino/"
+  model_dir_scratch: "/scratch/brussel/111/vsc11197/AVMNIST/dino/"
+  name: unimodal_dino_audio_mobilevit_augments_hypertuned
+  num_classes: 10
+optuna:
+  epochs_per_trial: 30
+  metric: mlp_acc
+  n_trials: 50
+  num_parallel_trials: 1
+  study_timeout: 86400  # 24 hours total
+  save_hyperparameters: true
+  visualize_results: true
+  augmentations:
+    global_views:
+      time_warp:
+        min_factor:
+          high: 0.9
+          low: 0.9
+          type: uniform
+        max_factor:
+          high: 1.1
+          low: 1.1
+          type: uniform
+        p:
+          high: 0.5
+          low: 0.3
+          type: uniform
+      frequency_mask:
+        freq_mask_param:
+          high: 20
+          low: 5
+          step: 5
+          type: int
+        p:
+          high: 0.5
+          low: 0.3
+          type: uniform
+      time_mask:
+        time_mask_param:
+          high: 20
+          low: 5
+          step: 5
+          type: int
+        p:
+          high: 0.5
+          low: 0.3
+          type: uniform
+      gaussian_noise:
+        std:
+          high: 0.1
+          low: 0.01
+          type: uniform
+        p:
+          high: 0.3
+          low: 0.1
+          type: uniform
+    
+    local_views:
+      time_warp:
+        min_factor:
+          high: 0.7
+          low: 0.5
+          type: uniform
+        max_factor:
+          high: 1.5
+          low: 1.3
+          type: uniform
+        p:
+          high: 1.0
+          low: 0.8
+          type: uniform
+      frequency_mask:
+        freq_mask_param:
+          high: 40
+          low: 20
+          step: 5
+          type: int
+        p:
+          high: 1.0
+          low: 0.8
+          type: uniform
+      time_mask:
+        time_mask_param:
+          high: 40
+          low: 20
+          step: 5
+          type: int
+        p:
+          high: 1.0
+          low: 0.8
+          type: uniform
+      gaussian_noise:
+        std:
+          high: 0.3
+          low: 0.1
+          type: uniform
+        p:
+          high: 1.0
+          low: 0.8
+          type: uniform
+      grouped_masking:
+        mask_ratio:
+          high: 0.75
+          low: 0.5
+          type: uniform
+        p:
+          high: 1.0
+          low: 0.8
+          type: uniform

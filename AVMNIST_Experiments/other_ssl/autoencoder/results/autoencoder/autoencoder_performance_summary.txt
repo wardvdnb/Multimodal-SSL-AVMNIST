@@ -1,0 +1,9 @@
+model_name: ConvAutoencoder
+parameters: 13.63M
+gflops: 0.23
+seeds: [1, 2, 3]
+training_time_hours: 0.64
+downstream_mlp_acc: 77.5500
+downstream_knn_accuracy: 21.7500
+downstream_mlp_acc_std: 0.1186
+downstream_knn_accuracy_std: 0.3748

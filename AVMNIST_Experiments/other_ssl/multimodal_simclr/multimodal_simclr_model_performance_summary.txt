@@ -1,0 +1,9 @@
+model_name: multimodal_simclr_model
+parameters: 1.27M
+gflops: 0.19
+seeds: [1, 2, 3]
+training_time_hours: 1.65
+downstream_mlp_acc_image: 64.7300 ± 0.1225
+downstream_knn_accuracy_image: 61.3500 ± 0.1435
+downstream_mlp_acc_audio: 66.8033 ± 0.6108
+downstream_knn_accuracy_audio: 51.4067 ± 0.8250

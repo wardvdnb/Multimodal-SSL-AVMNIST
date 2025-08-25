@@ -1,0 +1,88 @@
+home_dir: "/user/brussel/111/vsc11197/AVMNIST/"
+data:
+  data_dir: "/data/brussel/111/vsc11197/AVMNIST/data/"
+experiment:
+  hyperparameter_search: true
+  seed: 0
+hardware:
+  device: cpu
+  num_gpus: 0
+  num_workers: 8
+hyperparameters:
+  alpha: 1 # percentage of supervised loss used
+  batch_size: 128
+  dropout: 0.3
+  learning_rate: 0.0005
+  num_epochs: 100
+  projection_dim: 128
+  output_dim: 128
+  momentum: 0.996
+  center_momentum: 0.9
+  n_global_views: 2
+  n_local_views: 4
+  teacher_temperature: 0.001
+  weight_decay: 0.001
+  cosine_loss_alpha: 0
+  data_augmentation: "burst_noise"
+model:
+  model_dir_data: "/data/brussel/111/vsc11197/AVMNIST/dino/"
+  model_dir_scratch: "/scratch/brussel/111/vsc11197/AVMNIST/dino/"
+  name: multimodal_dino_semi_supervised
+  num_classes: 10
+optuna:
+  epochs_per_trial: 30
+  batch_size:
+    high: 512  # Allow larger batches since 256 was chosen
+    low: 128   # Raised the lower bound since the optimizer may prefer larger batches
+    step: 64
+    type: int
+  dropout:
+    high: 0.3  # Increase upper limit since 0.22 was chosen
+    low: 0.2   # Narrowed lower bound since 0.22 is near the middle, focusing on fine-tuning
+    type: uniform
+  learning_rate:
+    high: 5e-3  # Expand upper range to allow higher learning rates
+    low: 1e-5   # Allow slightly faster learning if beneficial
+    type: loguniform
+  projection_dim:
+    high: 384  # Increased since 256 was chosen, exploring larger dims
+    low: 192   # Keep slightly above the previous low (to avoid wasting trials on small dims)
+    step: 32
+    type: int
+  output_dim:
+    high: 384  # Same logic as projection_dim (increase upper limit)
+    low: 192
+    step: 32
+    type: int
+  momentum:
+    high: 0.9975  # Momentum is near upper bound, extend slightly
+    low: 0.995    # Raised lower bound to avoid undershooting
+    type: uniform
+  center_momentum:
+    high: 0.90  # Since 0.85 was chosen, we increase the lower bound a bit
+    low: 0.80   # Expand range lower to explore further refinement
+    type: uniform
+  n_global_views:
+    high: 3  # Increase upper bound slightly to explore past the current value (2)
+    low: 2   # Keep lower bound the same
+    step: 1
+    type: int
+  n_local_views:
+    high: 6  # Keep max as is, since 5 was selected
+    low: 3   # Allow slight reduction to explore fewer local views
+    step: 1
+    type: int
+  teacher_temperature:
+    high: 0.1   # Increase upper bound (it's extremely low at 0.0001)
+    low: 1e-5   # Maintain low exploration, but reduce how close it gets to 0
+    type: loguniform
+  weight_decay:
+    high: 0.1  # Increased since 0.0001 was chosen, allow larger decay to fight overfitting
+    low: 1e-5  # Keep a small lower bound for minimal regularization
+    type: loguniform
+  metric: train_loss
+  n_trials: 50
+  num_parallel_trials: 2
+  study_timeout: 86400  # 24 hours total
+  save_hyperparameters: true
+  visualize_results: true

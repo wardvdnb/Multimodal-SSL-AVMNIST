@@ -1,0 +1,30 @@
+csv:
+  csv_dir: "/data/brussel/111/vsc11197/AVMNIST/dino_temp/csv/"
+data:
+  data_dir: "/data/brussel/111/vsc11197/AVMNIST/data/"
+experiment:
+  hyperparameter_search: true
+  seed: 0
+hardware:
+  device: cpu
+  num_gpus: 0
+  num_workers: 8
+hyperparameters:
+  batch_size: 128
+  dropout: 0.1
+  lr: 0.0005
+  num_epochs: 100
+  projection_dim: 256
+  output_dim: 256
+  momentum: 0.996
+  center_momentum: 0.9
+logs:
+  log_dir: "/scratch/brussel/111/vsc11197/AVMNIST/logs/"
+model:
+  model_dir: "/data/brussel/111/vsc11197/AVMNIST/dino_temp/models/"
+  name: dino_cross_attention_vit_gated
+  name2: dino_cross_attention_vit_gated
+  metric: train_loss
+  num_classes: 10
+plots:
+  plots_dir: "/data/brussel/111/vsc11197/AVMNIST/dino_temp/plots/"

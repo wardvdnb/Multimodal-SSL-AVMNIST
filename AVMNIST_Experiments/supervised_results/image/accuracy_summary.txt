@@ -1,0 +1,2 @@
+Mean Test Accuracy over 3 seeds: 63.7933
+Std Dev of Accuracy: 0.6538

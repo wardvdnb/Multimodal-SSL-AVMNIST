@@ -1,0 +1,7 @@
+model_name: audio_simclr_model_cnn
+parameters: 0.65M
+gflops: 0.36
+seeds: [1, 2, 3]
+training_time_hours: 1.77
+downstream_mlp_acc_audio: 37.9533 ± 0.2176
+downstream_knn_accuracy_audio: 22.9033 ± 0.1799

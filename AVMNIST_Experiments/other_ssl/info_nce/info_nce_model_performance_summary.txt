@@ -1,0 +1,9 @@
+model_name: info_nce_model
+parameters: 1.27M
+gflops: 0.19
+seeds: [1, 2, 3]
+training_time_hours: 0.67
+downstream_mlp_acc_image: 64.7300 ± 0.3612
+downstream_knn_accuracy_image: 61.7900 ± 0.2454
+downstream_mlp_acc_audio: 72.4000 ± 0.8078
+downstream_knn_accuracy_audio: 67.9633 ± 0.5062

@@ -1,0 +1,7 @@
+model_name: audio_simclr_model_mobilevit
+parameters: 1.34M
+gflops: 0.03
+seeds: [1, 2, 3]
+training_time_hours: 1.70
+downstream_mlp_acc_audio: 33.8133 ± 0.6694
+downstream_knn_accuracy_audio: 30.7400 ± 0.3848

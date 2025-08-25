@@ -1,0 +1,140 @@
+csv:
+  csv_dir: "/data/brussel/111/vsc11197/AVMNIST/dino_vit/csv/"
+data:
+  data_dir: "/data/brussel/111/vsc11197/AVMNIST/data/"
+experiment:
+  hyperparameter_search: true
+  seed: 0
+hardware:
+  device: cpu
+  num_gpus: 0
+  num_workers: 8
+hyperparameters:
+  # General training parameters
+  batch_size: 128
+  lr: 0.0005
+  num_epochs: 10
+  
+  # DINO specific parameters
+  projection_dim: 256
+  output_dim: 256
+  momentum: 0.996
+  center_momentum: 0.9
+  student_temperature: 0.1
+  teacher_temperature: 0.04
+  
+  # ViT architecture parameters
+  image_encoder:
+    image_size: 28
+    patch_size: 4
+    in_channels: 1
+    embed_dim: 192
+    depth: 4
+    num_heads: 3
+    mlp_ratio: 4.0
+    dropout: 0.1
+  
+  audio_encoder:
+    spectrogram_size: 112
+    patch_size: 8
+    in_channels: 1
+    embed_dim: 192
+    depth: 4
+    num_heads: 3
+    mlp_ratio: 4.0
+    dropout: 0.1
+  
+  # Fusion parameters
+  fusion_hidden_dim: 512
+logs:
+  log_dir: "/scratch/brussel/111/vsc11197/AVMNIST/logs/"
+model:
+  model_dir: "/data/brussel/111/vsc11197/AVMNIST/dino_vit/models/"
+  name: multimodal_dino_vit
+  num_classes: 10
+optuna:
+  batch_size:
+    low: 16
+    high: 128
+    step: 16
+    type: int
+  lr:
+    high: 1e-3
+    low: 1e-6
+    type: loguniform
+  
+  # DINO parameters for optimization
+  projection_dim:
+    high: 512
+    low: 128
+    step: 64
+    type: int
+  output_dim:
+    high: 512
+    low: 128
+    step: 64
+    type: int
+  momentum:
+    high: 0.999
+    low: 0.9
+    type: uniform
+  center_momentum:
+    high: 0.99
+    low: 0.8
+    type: uniform
+  student_temperature:
+    high: 0.2
+    low: 0.05
+    type: uniform
+  teacher_temperature:
+    high: 0.07
+    low: 0.01
+    type: uniform
+  
+  # ViT architecture parameters for optimization
+  # Modified to ensure divisibility constraints
+  image_encoder.embed_dim:
+    high: 256
+    low: 96
+    step: 32  # Only multiples of 32
+    type: int
+  image_encoder.num_heads:
+    choices: [1, 2, 4, 8]  # Only powers of 2 to ensure divisibility
+    type: categorical
+  image_encoder.depth:
+    high: 6
+    low: 2
+    step: 1
+    type: int
+  image_encoder.dropout:
+    high: 0.3
+    low: 0.0
+    type: uniform
+  
+  audio_encoder.embed_dim:
+    high: 256
+    low: 96
+    step: 32  # Only multiples of 32
+    type: int
+  audio_encoder.num_heads:
+    choices: [1, 2, 4, 8]  # Only powers of 2 to ensure divisibility
+    type: categorical
+  audio_encoder.depth:
+    high: 6
+    low: 2
+    step: 1
+    type: int
+  audio_encoder.dropout:
+    high: 0.3
+    low: 0.0
+    type: uniform
+  
+  metric: train_loss
+  n_trials: 20
+  num_parallel_trials: 2
+  save_hyperparameters: true
+  study_dir: "/scratch/brussel/111/vsc11197/AVMNIST/dino_vit/optuna/"
+  study_name: multimodal_dino_vit
+  visualize_results: true
+plots:
+  plots_dir: "/data/brussel/111/vsc11197/AVMNIST/dino_vit/plots/"

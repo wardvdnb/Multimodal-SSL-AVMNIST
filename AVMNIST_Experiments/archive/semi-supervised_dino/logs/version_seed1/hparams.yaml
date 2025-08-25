@@ -1,0 +1,17 @@
+alpha: 1
+center_momentum: 0.9
+data_augmentation: burst_noise
+data_dir: ../..//data/avmnist/
+dropout: 0.3
+encoder_class: !!python/name:models.dino.SimpleMultiModalEncoder ''
+encoder_kwargs: null
+encoder_output_dim: 512
+learning_rate: 0.001
+momentum: 0.996
+num_epochs: 100
+output_dim: 256
+projection_dim: 128
+student_temperature: 0.1
+teacher_temperature: 0.04
+use_mixed_precision: true
+weight_decay: 1.0e-06

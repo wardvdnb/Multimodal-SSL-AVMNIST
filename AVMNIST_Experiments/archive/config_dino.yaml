@@ -1,0 +1,93 @@
+csv:
+  csv_dir: "/data/brussel/111/vsc11197/AVMNIST/dino/csv/"
+data:
+  data_dir: "/data/brussel/111/vsc11197/AVMNIST/data/"
+experiment:
+  hyperparameter_search: true
+  seed: 0
+hardware:
+  device: cpu
+  num_gpus: 0
+  num_workers: 8
+hyperparameters:
+  batch_size: 128
+  data_augmentation: "burst_noise"
+  learning_rate: 0.0001
+  num_epochs: 100
+  projection_dim: 128
+  output_dim: 10
+  encoder_output_dim: 512
+  momentum: 0.996
+  center_momentum: 0.9
+  n_global_views: 2
+  n_local_views: 4
+  student_temperature: 0.1
+  teacher_temperature: 0.04
+  weight_decay: 0.000001
+  cosine_loss_alpha: 0
+  dropout: 0.3
+logs:
+  log_dir: "/scratch/brussel/111/vsc11197/AVMNIST/logs/"
+model:
+  model_dir: "/data/brussel/111/vsc11197/AVMNIST/dino/models/"
+  name: multimodal_dino
+  num_classes: 10
+optuna:
+  batch_size:
+    high: 256
+    low: 64  # Increased to keep practical bounds centered around your default (128)
+    step: 32
+    type: int
+  dropout:
+    high: 0.4  # Focused around 0.3 for better optimization
+    low: 0.1
+    type: uniform
+  lr:
+    high: 1e-3
+    low: 1e-6
+    type: loguniform
+  projection_dim:
+    high: 256  # Slightly increased to allow variation but kept close to default (128)
+    low: 128
+    step: 32
+    type: int
+  output_dim:
+    high: 256  # Tightened around 128 to avoid excessive exploration
+    low: 128
+    step: 32
+    type: int
+  momentum:
+    high: 0.998  # Narrowed around 0.996 for refined fine-tuning
+    low: 0.995
+    type: uniform
+  center_momentum:
+    high: 0.95  # Adjusted to focus around 0.9
+    low: 0.85
+    type: uniform
+  n_global_views:  # Added this hyperparameter
+    high: 4  # Allow some exploration beyond your current value (2)
+    low: 2
+    step: 1
+    type: int
+  n_local_views:  # Added this hyperparameter
+    high: 6  # Small range around your current value (4)
+    low: 4
+    step: 1
+    type: int
+  teacher_temperature:  # Added this hyperparameter
+    high: 0.04  # Allow tuning around very low temperature values for sharper logits
+    low: 0.0001  # To explore further cooling possibilities
+    type: loguniform
+  weight_decay:  # Added this hyperparameter
+    high: 0.01  # Slightly increased from your default of 0.001
+    low: 0.0001  # Allow more regularization in case of overfitting
+    type: loguniform
+  metric: train_loss
+  n_trials: 50
+  num_parallel_trials: 2
+  save_hyperparameters: true
+  study_dir: "/scratch/brussel/111/vsc11197/AVMNIST/dino/optuna/"
+  study_name: multimodal_dino
+  visualize_results: true
+plots:
+  plots_dir: "/data/brussel/111/vsc11197/AVMNIST/dino/plots/"

@@ -1,0 +1,2 @@
+## Best DINO Model Performances (Multimodal and Unimodal) [Step 3]
+In the third step we consider the best model for each modality (multimodal, unimodal image and unimodal spectrogram), the config files from the previous step are used, they contain the best hyperparameters for the architecture, and now we keep these static and hyperparameter tune the augmentations of the spectrogram side (since this is the weakest performing modality).

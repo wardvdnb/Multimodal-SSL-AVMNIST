@@ -1,0 +1,313 @@
+home_dir: "/user/brussel/111/vsc11197/AVMNIST/"
+data:
+  data_dir: "/data/brussel/111/vsc11197/AVMNIST/data/"
+experiment:
+  seed: 1
+hardware:
+  device: gpu
+  num_gpus: 0
+  num_workers: 8
+hyperparameters:
+  batch_size: 128
+  data_augmentation: "burst_noise"
+  learning_rate: 0.0001
+  num_epochs: 100
+  projection_dim: 128
+  output_dim: 256
+  encoder_output_dim: 256
+  momentum: 0.996
+  center_momentum: 0.9
+  n_global_views: 2
+  n_local_views: 4
+  student_temperature: 0.1
+  teacher_temperature: 0.04
+  weight_decay: 0.000001
+  cosine_loss_alpha: 0
+  dropout: 0.3
+  metric: mlp_acc
+best_augments:
+  global_views:
+    frequency_mask:
+      freq_mask_param: 10
+      p: 0.2
+    gaussian_noise:
+      p: 0.0
+      std: 0.04552457550727449
+    time_mask:
+      p: 0.2
+      time_mask_param: 10
+    time_warp:
+      max_factor: 1.1
+      min_factor: 0.9
+      p: 0.0
+    random_resized_crop:
+      size: [112, 112]
+      scale: [0.75, 1.0]
+      p: 1.0
+    random_affine:
+      translate: [0.1, 0.1]
+      scale: [1.0, 1.0]
+      degrees: 0
+      p: 1.0
+  local_views:
+    frequency_mask:
+      freq_mask_param: 30
+      p: 0.4
+    gaussian_noise:
+      p: 0.0
+      std: 0.18046730961749252
+    grouped_masking:
+      mask_ratio: 0.1
+      p: 0.3
+    time_mask:
+      p: 0.4
+      time_mask_param: 30
+    time_warp:
+      max_factor: 1.349827557748123
+      min_factor: 0.610125670950756
+      p: 0.0
+    random_resized_crop:
+      size: [112, 112]
+      scale: [0.3, 0.75]
+      p: 1.0
+    random_affine:
+      translate: [0.2, 0.2]
+      scale: [0.8, 1.2]
+      degrees: 0
+      p: 1.0
+logs:
+  log_dir: "/scratch/brussel/111/vsc11197/AVMNIST/logs/"
+model:
+  model_dir_data: "/data/brussel/111/vsc11197/AVMNIST/dino/"
+  model_dir_scratch: "/scratch/brussel/111/vsc11197/AVMNIST/dino/"
+  name: unknown # Placeholder for model name
+  num_classes: 10
+optuna:
+  epochs_per_trial: 50
+  batch_size:
+    high: 256
+    low: 128
+    step: 64
+    type: int
+  learning_rate:
+    high: 5e-3
+    low: 1e-5
+    type: loguniform
+  projection_dim:
+    high: 384  
+    low: 32
+    step: 32
+    type: int  
+  output_dim:
+    high: 384
+    low: 32
+    step: 32
+    type: int
+  encoder_output_dim:
+    high: 384
+    low: 32
+    step: 32
+    type: int
+  momentum:
+    high: 0.999
+    low: 0.995
+    type: uniform    
+  center_momentum:
+    high: 0.90
+    low: 0.80
+    type: uniform    
+  n_global_views:
+    high: 2
+    low: 2
+    step: 1
+    type: int  
+  n_local_views:
+    high: 6
+    low: 3
+    step: 1
+    type: int  
+  student_temperature:
+    type: loguniform
+    low: 0.05
+    high: 0.2
+  teacher_temperature:
+    type: loguniform
+    low: 0.02
+    high: 0.07
+  weight_decay:
+    high: 0.1
+    low: 1e-5  # Keep a small lower bound for minimal regularization
+    type: loguniform
+  dropout:
+    high: 0.5
+    low: 0.0
+    type: uniform
+  augmentations:
+    global_views:
+      time_warp:
+        min_factor:
+          high: 0.9
+          low: 0.9
+          type: uniform
+        max_factor:
+          high: 1.1
+          low: 1.1
+          type: uniform
+        p:
+          high: 0.5
+          low: 0.0
+          type: uniform
+      frequency_mask:
+        freq_mask_param:
+          high: 20
+          low: 5
+          step: 5
+          type: int
+        p:
+          high: 0.5
+          low: 0.0
+          type: uniform
+      time_mask:
+        time_mask_param:
+          high: 20
+          low: 5
+          step: 5
+          type: int
+        p:
+          high: 0.5
+          low: 0.0
+          type: uniform
+      gaussian_noise:
+        std:
+          high: 0.1
+          low: 0.01
+          type: uniform
+        p:
+          high: 0.3
+          low: 0.0
+          type: uniform
+      random_resized_crop:
+        size:
+          type: categorical
+          choices:
+            - [112, 112]           # always full res for global
+        scale:
+          type: categorical
+          choices:
+            - [0.6, 1.0]           # keep ≥60% of the spectrogram
+            - [0.7, 1.0]           # keep ≥70%
+            - [0.8, 1.0]           # keep ≥80%
+        p:
+          type: uniform
+          low: 0.0
+          high: 1.0
+      random_affine:
+        translate:
+          type: categorical
+          choices:
+            - [0.0, 0.2]           # up to 20% shift
+            - [0.1, 0.2]           # more time-axis shift
+        scale:
+          type: categorical
+          choices:
+            - [0.8, 1.2]           # mild zoom
+            - [0.9, 1.1]           # very mild zoom
+        degrees:
+          type: uniform
+          low: 0
+          high: 0
+        p:
+          type: uniform
+          low: 0.0
+          high: 1.0
+    local_views:
+      time_warp:
+        min_factor:
+          high: 0.7
+          low: 0.5
+          type: uniform
+        max_factor:
+          high: 1.5
+          low: 1.3
+          type: uniform
+        p:
+          high: 1.0
+          low: 0.0
+          type: uniform
+      frequency_mask:
+        freq_mask_param:
+          high: 40
+          low: 20
+          step: 5
+          type: int
+        p:
+          high: 1.0
+          low: 0.0
+          type: uniform
+      time_mask:
+        time_mask_param:
+          high: 40
+          low: 20
+          step: 5
+          type: int
+        p:
+          high: 1.0
+          low: 0.0
+          type: uniform
+      gaussian_noise:
+        std:
+          high: 0.3
+          low: 0.1
+          type: uniform
+        p:
+          high: 1.0
+          low: 0.0
+          type: uniform
+      grouped_masking:
+        mask_ratio:
+          high: 0.75
+          low: 0.5
+          type: uniform
+        p:
+          high: 1.0
+          low: 0.0
+          type: uniform
+      random_resized_crop:
+        size:
+          type: categorical
+          choices:
+            - [112, 112]           # we still resize back to full res
+        scale:
+          type: categorical
+          choices:
+            - [0.3, 0.7]           # allow tight local crops
+            - [0.4, 0.8]
+            - [0.5, 0.9]
+        p:
+          type: uniform
+          low: 0.0
+          high: 1.0
+      random_affine:
+        translate:
+          type: categorical
+          choices:
+            - [0.0, 0.1]           # small shift
+            - [0.0, 0.15]
+        scale:
+          type: categorical
+          choices:
+            - [0.9, 1.1]           # very subtle zoom
+            - [0.95, 1.05]
+        degrees:
+          type: uniform
+          low: 0
+          high: 0
+        p:
+          type: uniform
+          low: 0.0
+          high: 1.0
+  n_trials: 50
+  num_parallel_trials: 1
+  study_timeout: 86400  # 72 hours total
+  save_hyperparameters: true
+  visualize_results: true

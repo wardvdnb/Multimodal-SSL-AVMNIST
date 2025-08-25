@@ -1,0 +1,5 @@
+learning_rate: 0.001
+num_epochs: 100
+output_dim: 256
+projection_dim: 256
+use_mixed_precision: true

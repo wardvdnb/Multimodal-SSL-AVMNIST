@@ -1,0 +1,3 @@
+epoch,train_loss,val_loss,val_accuracy,"# {'start_time': '2025-02-20 19:16:38', 'learning_rate': 0.001, 'batch_size': 128, 'epochs': 10, 'criterion': 'CrossEntropyLoss', 'optimizer': 'Adam', 'model_name': 'Unimodal_Audio'}
+"
+1,2.3840365529060366,2.0829199850559235,23.3

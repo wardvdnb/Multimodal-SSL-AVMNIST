@@ -1,0 +1,3 @@
+fusion: concat
+downstream_knn_accuracy_fusion: 61.7200 ± 0.2083
+downstream_mlp_acc_fusion: 65.1300 ± 0.1590

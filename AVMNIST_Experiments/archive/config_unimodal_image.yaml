@@ -1,0 +1,45 @@
+csv:
+  csv_dir: "/data/brussel/111/vsc11197/AVMNIST/image/csv/"
+data:
+  data_dir: "/data/brussel/111/vsc11197/AVMNIST/data/"
+experiment:
+  hyperparameter_search: true
+  seed: 0
+hardware:
+  device: cpu
+  num_gpus: 0
+  num_workers: 8
+hyperparameters:
+  batch_size: 112
+  dropout: 0.3890599193467976
+  lr: 0.0009717483048098508
+  num_epochs: 5
+logs:
+  log_dir: "/scratch/brussel/111/vsc11197/AVMNIST/logs/"
+model:
+  model_dir: "/data/brussel/111/vsc11197/AVMNIST/image/models/"
+  name: unimodal_image
+  num_classes: 10
+optuna:
+  batch_size:
+    high: 128
+    low: 32
+    step: 16
+    type: int
+  dropout:
+    high: 0.5
+    low: 0.1
+    type: uniform
+  lr:
+    high: 1e-1
+    low: 1e-5
+    type: loguniform
+  metric: val_loss
+  n_trials: 10
+  num_parallel_trials: 2
+  save_hyperparameters: true
+  study_dir: "/scratch/brussel/111/vsc11197/AVMNIST/image/optuna/"
+  study_name: unimodal_image
+  visualize_results: true
+plots:
+  plots_dir: "/data/brussel/111/vsc11197/AVMNIST/image/plots/"

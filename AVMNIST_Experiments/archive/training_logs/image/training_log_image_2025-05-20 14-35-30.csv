@@ -1,0 +1,2 @@
+epoch,train_loss,val_loss,val_accuracy,"# {'start_time': '2025-05-20 14:35:30', 'learning_rate': 0.001, 'batch_size': 128, 'epochs': 10, 'criterion': 'CrossEntropyLoss', 'optimizer': 'Adam', 'model_name': 'Unimodal_Image'}
+"

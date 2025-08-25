@@ -1,0 +1,9 @@
+model_name: masked_autoencoder_conv
+parameters: 7.21M
+gflops: 0.23
+seeds: [1, 2, 3]
+training_time_hours: 1.06
+downstream_mlp_acc: 80.6733
+downstream_knn_accuracy: 29.8100
+downstream_mlp_acc_std: 0.2691
+downstream_knn_accuracy_std: 0.9414
